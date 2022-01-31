@@ -15,6 +15,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import PersonIcon from '@mui/icons-material/Person';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -99,14 +100,15 @@ export default function MiniDrawer({children}) {
 
   const item = [
       {to: '/' , label: "Daseborad" , icon: <DashboardIcon/>},
-      {to: '/user' , label: "User" , icon: <PersonIcon/>}
+      {to: '/user' , label: "User" , icon: <PersonIcon/>},
+      {to: '/product' , label: "Product" , icon: <ShoppingBagIcon/>}
   ]
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar className='layout'>
           <IconButton
             color="inherit"
             aria-label="open drawer"

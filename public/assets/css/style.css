@@ -8691,3 +8691,16 @@ h6 {
 }
 
 /*# sourceMappingURL=../css/style.map */
+.layout{
+  background-color: #B08EAD !important;
+}
+.button{
+  background : #B08EAD !important;
+  color : #fff;
+}
+.button:hover{
+  border : 1px solid #B08EAD;
+  background : #fff !important;
+  color:#B08EAD;
+  box-shadow: none !important;
+}

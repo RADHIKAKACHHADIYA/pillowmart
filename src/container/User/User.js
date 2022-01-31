@@ -7,8 +7,8 @@ function user(props) {
         <div>
             <Box>
                 <Typography variant="h2" >
-                   Uesr
-                </Typography>;
+                   User
+                </Typography>
             </Box>
         </div>
     );
