@@ -8697,6 +8697,11 @@ h6 {
 .button{
   background : #B08EAD !important;
   color : #fff;
+  box-shadow: none !important;
+  box-shadow: none !important;
+  transition: all 0.5s ;
+  border : 1px solid #B08EAD !important;
+
 }
 .button:hover{
   border : 1px solid #B08EAD;
