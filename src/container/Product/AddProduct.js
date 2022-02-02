@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -20,18 +20,16 @@ function AddProduct({open , handleClose , loadData}) {
             localStorage.setItem("product", JSON.stringify(localdata))
         }
           
-          handleClose() 
-          loadData()
+        handleClose() 
+        loadData()
     };
-
-
     let AddSchema = {
         name: yup.string().
             required("must be requir your name"),
         price: yup.number().
             required("must be requir your name"),
-        img: yup.string().
-            required("must be requir your file")
+        // img: yup.string().
+        //     required("must be requir your file")
     }
 
     let schema = yup.object().shape(AddSchema)
@@ -40,7 +38,7 @@ function AddProduct({open , handleClose , loadData}) {
         initialValues: {
             name: "",
             price: "",
-            img:""
+            // img:""
         },
         validationSchema: schema,
         onSubmit: (value) => {
@@ -82,7 +80,7 @@ function AddProduct({open , handleClose , loadData}) {
                                 error={Boolean(errors.price && touched.price)}
                                 helperText={(errors.price && touched.price) && errors.price}
                             />
-                            <TextField 
+                            {/* <TextField 
                                  margin="dense"
                                  id="img"
                                  label="Img"
@@ -92,7 +90,7 @@ function AddProduct({open , handleClose , loadData}) {
                                  {...getFieldProps("img")}
                                  error={Boolean(errors.img && touched.img)}
                                  helperText={(errors.img && touched.img) && errors.img}
-                            />
+                            /> */}
 
                         </DialogContent>
                         <DialogActions>

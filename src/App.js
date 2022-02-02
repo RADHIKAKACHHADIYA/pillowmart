@@ -1,9 +1,9 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import Layout from '../src/componets/Layout/Layout'
-import Daseborad from './container/User/Daseborad/Daseborad'
+import Layout from './componets/Layout/Layout'
+import Daseborad from './container/Daseborad/Daseborad'
 import User from './container/User/User'
-import Product from './container/User/Product/Product'
+import Product from './container/Product/Product'
 
 
 function App() {
