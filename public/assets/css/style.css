@@ -8709,3 +8709,12 @@ h6 {
   color:#B08EAD;
   box-shadow: none !important;
 }
+.MuiDrawer-paper{
+  background-color: #B08EAD !important;
+}
+.MuiListItemText-root {
+  color: #fff !important;
+}
+.MuiListItemIcon-root{
+  color: #fff !important;
+}

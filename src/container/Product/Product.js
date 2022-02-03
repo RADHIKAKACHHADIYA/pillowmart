@@ -98,6 +98,7 @@ function Product(props) {
     const [data, setData] = useState([])
     const [dOpen , setdOpen] = useState(false)
     const [id , setId] = useState()
+    const [edit , setEdit] = useState()
 
     useEffect(
         () => {
@@ -117,6 +118,15 @@ function Product(props) {
         setData(localdata)
     }
 
+    const handleEdit = (id) => {
+        const localdata = JSON.parse(localStorage.getItem("product"))
+        let filterData = localdata.filter((e) => e.id === id)
+
+        setEdit(filterData[0])
+        setOpen(filterData)
+
+    }
+
     const handleDelete = () => {
         let localdata = JSON.parse(localStorage.getItem("product"))
         
@@ -127,7 +137,7 @@ function Product(props) {
         setData(fData)
         handleClose();
        
-     }
+    }
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -154,7 +164,7 @@ function Product(props) {
                     >
                         Add Product
                     </Button>
-                    <AddProduct open={open} handleClose={handleClose} loadData={loadData} />
+                    <AddProduct open={open} handleClose={handleClose} loadData={loadData} edit={edit}/>
                 </Box>
                 <TableContainer component={Paper} >
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -189,15 +199,14 @@ function Product(props) {
                                         <h6>${row.price}</h6>
                                     </TableCell>
                                     <TableCell align="center">
-                                        <IconButton aria-label="edit" color="primary" >
+                                        <IconButton aria-label="edit" color="primary" onClick={() => handleEdit(row.id)}>
                                             <EditIcon />
                                         </IconButton>
                                     </TableCell>
                                     <TableCell align="center"  >
                                         <IconButton sx={{ color: ' #dc3545' }}
                                             aria-label="delete"
-                                            onClick={() => { setdOpen(true);  setId(row.id)}}>
-                                                
+                                            onClick={() => { setdOpen(true);  setId(row.id)}}>    
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>

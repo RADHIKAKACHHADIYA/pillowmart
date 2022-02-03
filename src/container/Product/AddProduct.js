@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,14 +9,29 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, FormikProvider , useFormik } from 'formik';
 
-function AddProduct({open , handleClose , loadData}) {
+function AddProduct({open , handleClose , loadData, edit}) {
+    const [ update , setUpdate] = useState()
+    
+    useEffect(
+        () => {
+            setUpdate(edit)
+        },
+    [edit])
+    const handleEdit = (value) => {
+        let data = {
+            "id" : update ? update.id : '' ,
+            "name" : value.name , 
+            "price" : parseInt(value.price) 
+        }
+    }
 
     const handleAdd = (value) => {
         let localdata = JSON.parse(localStorage.getItem("product"))
+        let data = { ...value, "id": Math.floor(Math.random() * 100) + 1 }
         if (localdata === null){
-            localStorage.setItem("product", JSON.stringify([value]))
+            localStorage.setItem("product", JSON.stringify([data]))
         } else {
-            localdata.push(value)
+            localdata.push(data)
             localStorage.setItem("product", JSON.stringify(localdata))
         }
           
@@ -35,9 +50,10 @@ function AddProduct({open , handleClose , loadData}) {
     let schema = yup.object().shape(AddSchema)
 
     const formik = useFormik({
+        enableReinitialize: true ,
         initialValues: {
-            name: "",
-            price: "",
+            name: update ? update.name : "",
+            price: parseInt(update ? update.price : "") ,
             // img:""
         },
         validationSchema: schema,
@@ -46,7 +62,7 @@ function AddProduct({open , handleClose , loadData}) {
         }
     });
 
-    const { handleSubmit, errors, touched, getFieldProps } = formik;
+    const { handleSubmit, errors, touched, handleChange, handleBlur, getFieldProps } = formik;
 
     return (
         <div>
@@ -65,7 +81,9 @@ function AddProduct({open , handleClose , loadData}) {
                                 type="text"
                                 fullWidth
                                 variant="standard"
-                                {...getFieldProps("name")}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                defaultValue={update ? update.name : ''}
                                 error={Boolean(errors.name && touched.name)}
                                 helperText={(errors.name && touched.name) && errors.name}
                             />
@@ -76,7 +94,9 @@ function AddProduct({open , handleClose , loadData}) {
                                 type="text"
                                 fullWidth
                                 variant="standard"
-                                {...getFieldProps("price")}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                defaultValue={update ? update.price : ''}
                                 error={Boolean(errors.price && touched.price)}
                                 helperText={(errors.price && touched.price) && errors.price}
                             />
@@ -94,8 +114,8 @@ function AddProduct({open , handleClose , loadData}) {
 
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose} type='submit'>Cancel</Button>
-                            <Button type='submit'>Submit</Button>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button type='submit'>{update ? 'Edit' : 'Add'}</Button>
                         </DialogActions>
                     </Form>
                 </FormikProvider>
