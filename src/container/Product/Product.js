@@ -18,6 +18,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import { useDispatch } from 'react-redux';
+import { fetchProduct } from '../../redux/action/Product.action';
 
 // import Card from '@mui/material/Card';
 // import CardActions from '@mui/material/CardActions';
@@ -99,12 +101,18 @@ function Product(props) {
     const [dOpen , setdOpen] = useState(false)
     const [id , setId] = useState()
     const [edit , setEdit] = useState()
+    const dispatch = useDispatch()
 
-    useEffect(
+    useEffect (
         () => {
-            loadData()
-        },
-        [])
+            dispatch(fetchProduct())
+        }
+    )
+    // useEffect(
+    //     () => {
+    //         loadData()
+    //     },
+    //     [])
 
     const loadData = () => {
         let localdata = JSON.parse(localStorage.getItem("product"))

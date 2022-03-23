@@ -17,6 +17,7 @@ function AddProduct({open , handleClose , loadData, edit}) {
             setUpdate(edit)
         },
     [edit])
+
     const handleEdit = (value) => {
         let data = {
             "id" : update ? update.id : '' ,
@@ -26,14 +27,14 @@ function AddProduct({open , handleClose , loadData, edit}) {
     }
 
     const handleAdd = (value) => {
-        let localdata = JSON.parse(localStorage.getItem("product"))
+        // let localdata = JSON.parse(localStorage.getItem("product"))
         let data = { ...value, "id": Math.floor(Math.random() * 100) + 1 }
-        if (localdata === null){
-            localStorage.setItem("product", JSON.stringify([data]))
-        } else {
-            localdata.push(data)
-            localStorage.setItem("product", JSON.stringify(localdata))
-        }
+        // if (localdata === null){
+        //     localStorage.setItem("product", JSON.stringify([data]))
+        // } else {
+        //     localdata.push(data)
+        //     localStorage.setItem("product", JSON.stringify(localdata))
+        // }
           
         handleClose() 
         loadData()
