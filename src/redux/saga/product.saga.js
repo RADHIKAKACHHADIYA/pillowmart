@@ -13,7 +13,7 @@ function* fetchproduct() {
 function* addProduct() {
    try{
       const user = yield call(addProductData);
-      yield postMessage(user.data.data);
+      yield postMessage(user.data);
    } catch ( error) {
       console.log(error)
    }

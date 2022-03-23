@@ -8,9 +8,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, FormikProvider , useFormik } from 'formik';
+import { useDispatch ,useSelector} from 'react-redux';
+import { addProduct, fetchProduct } from '../../redux/action/Product.action';
+
+
 
 function AddProduct({open , handleClose , loadData, edit}) {
     const [ update , setUpdate] = useState()
+    const dispatch = useDispatch()
+
     
     useEffect(
         () => {
@@ -25,19 +31,22 @@ function AddProduct({open , handleClose , loadData, edit}) {
             "price" : parseInt(value.price) 
         }
     }
+    useEffect (
+        () => {
+            dispatch(fetchProduct())
+        }
+    )
+    const product = useSelector(state => state.product);
+    console.log(product.product)
 
     const handleAdd = (value) => {
-        // let localdata = JSON.parse(localStorage.getItem("product"))
-        let data = { ...value, "id": Math.floor(Math.random() * 100) + 1 }
-        // if (localdata === null){
-        //     localStorage.setItem("product", JSON.stringify([data]))
-        // } else {
-        //     localdata.push(data)
-        //     localStorage.setItem("product", JSON.stringify(localdata))
-        // }
-          
-        handleClose() 
-        loadData()
+        let data = {
+            "id": Math.floor((Math.random() * 1000) + 1),
+            ...value
+        }
+
+        dispatch(addProduct(data))
+        handleClose()
     };
     let AddSchema = {
         name: yup.string().

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState  } from 'react';
 import Box from '@mui/material/Box';
 import { Button, ImageList, ImageListItem, Typography } from '@mui/material';
 import AddProduct from './AddProduct';
@@ -18,7 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { fetchProduct } from '../../redux/action/Product.action';
 
 // import Card from '@mui/material/Card';
@@ -108,11 +108,13 @@ function Product(props) {
             dispatch(fetchProduct())
         }
     )
-    // useEffect(
-    //     () => {
-    //         loadData()
-    //     },
-    //     [])
+    const product = useSelector(state => state.product);
+    console.log(product.product)
+    useEffect(
+        () => {
+            loadData()
+        },
+        [])
 
     const loadData = () => {
         let localdata = JSON.parse(localStorage.getItem("product"))

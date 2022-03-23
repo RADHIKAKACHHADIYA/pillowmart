@@ -6,3 +6,6 @@ export const  fetchProduct = () => (dispatch) => {
 export const addProduct = (data) => (dispatch) => {
     dispatch({type: actionType.ADD_PRODUCT , payload:data})
 }
+export const addedpatients = (data) => (dispatch) => {
+    dispatch({ type: actionType.ADDED_PRODUCT, payload: data})
+}

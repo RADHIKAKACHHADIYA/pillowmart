@@ -16,6 +16,13 @@ export const ProductReducer = (state = initialValue, action) => {
                 errorMsg: '',
                 isLoading: false
             }
+            case ActionType.ADDED_PRODUCT:
+                return {
+                    ...state,
+                    patients: state.product.concat(action.payload),
+                    errorMsg: '',
+                    isLoading: false
+                }
         default:
             return state;
     }
