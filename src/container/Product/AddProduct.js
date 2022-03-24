@@ -7,37 +7,35 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
-import { Form, FormikProvider , useFormik } from 'formik';
-import { useDispatch ,useSelector} from 'react-redux';
+import { Form, FormikProvider, useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, fetchProduct } from '../../redux/action/Product.action';
+import Product from './Product';
 
 
 
-function AddProduct({open , handleClose , loadData, edit}) {
-    const [ update , setUpdate] = useState()
+function AddProduct({ open, handleClose, loadData, edit }) {
+    const [update, setUpdate] = useState()
     const dispatch = useDispatch()
 
-    
+
+
     useEffect(
         () => {
             setUpdate(edit)
         },
-    [edit])
+        [edit])
 
-    const handleEdit = (value) => {
-        let data = {
-            "id" : update ? update.id : '' ,
-            "name" : value.name , 
-            "price" : parseInt(value.price) 
-        }
-    }
-    useEffect (
-        () => {
-            dispatch(fetchProduct())
-        }
-    )
     const product = useSelector(state => state.product);
     console.log(product.product)
+
+    // const handleEdit = (value) => {
+    //     let data = {
+    //         "id" : update ? update.id : '' ,
+    //         "name" : value.name , 
+    //         "price" : parseInt(value.price) 
+    //     }
+    // }
 
     const handleAdd = (value) => {
         let data = {
@@ -48,23 +46,24 @@ function AddProduct({open , handleClose , loadData, edit}) {
         dispatch(addProduct(data))
         handleClose()
     };
+
     let AddSchema = {
         name: yup.string().
             required("must be requir your name"),
         price: yup.number().
             required("must be requir your name"),
-        // img: yup.string().
-        //     required("must be requir your file")
+        price: yup.number().
+            required("must be requir your name"),
     }
 
     let schema = yup.object().shape(AddSchema)
 
     const formik = useFormik({
-        enableReinitialize: true ,
+        enableReinitialize: true,
         initialValues: {
             name: update ? update.name : "",
-            price: parseInt(update ? update.price : "") ,
-            // img:""
+            price: parseInt(update ? update.price : ""),
+            price: parseInt(update ? update.price : ""),
         },
         validationSchema: schema,
         onSubmit: (value) => {
@@ -76,9 +75,10 @@ function AddProduct({open , handleClose , loadData, edit}) {
 
     return (
         <div>
+            <Product product={product} />
             <Dialog open={open} onClose={handleClose}>
                 <FormikProvider value={formik}>
-                    <Form  onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <DialogTitle>Add Product </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
@@ -86,41 +86,43 @@ function AddProduct({open , handleClose , loadData, edit}) {
                             </DialogContentText>
                             <TextField
                                 margin="dense"
-                                id="name"
+                                id="email"
                                 label="Name"
-                                type="text"
+                                type="email"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                defaultValue={update ? update.name : ''}
-                                error={Boolean(errors.name && touched.name)}
-                                helperText={(errors.name && touched.name) && errors.name}
+                                defaultValue={update ? update.email : ''}
+                                error={Boolean(errors.email && touched.email)}
+                                helperText={(errors.email && touched.email) && errors.email}
                             />
                             <TextField
                                 margin="dense"
-                                id="price"
-                                label="Price"
+                                id="first_name"
+                                label="First Name"
                                 type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                defaultValue={update ? update.price : ''}
-                                error={Boolean(errors.price && touched.price)}
-                                helperText={(errors.price && touched.price) && errors.price}
+                                defaultValue={update ? update.first_name : ''}
+                                error={Boolean(errors.first_name && touched.first_name)}
+                                helperText={(errors.first_name && touched.first_name) && errors.first_name}
                             />
-                            {/* <TextField 
-                                 margin="dense"
-                                 id="img"
-                                 label="Img"
-                                 type="file"
-                                 fullWidth
-                                 variant="standard"
-                                 {...getFieldProps("img")}
-                                 error={Boolean(errors.img && touched.img)}
-                                 helperText={(errors.img && touched.img) && errors.img}
-                            /> */}
+                            <TextField
+                                margin="dense"
+                                id="last_name"
+                                label="Last Name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                defaultValue={update ? update.last_name : ''}
+                                error={Boolean(errors.last_name && touched.last_name)}
+                                helperText={(errors.last_name && touched.last_name) && errors.last_name}
+                            />
 
                         </DialogContent>
                         <DialogActions>

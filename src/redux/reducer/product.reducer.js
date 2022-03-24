@@ -7,7 +7,7 @@ const initialValue = {
 }
 
 export const ProductReducer = (state = initialValue, action) => {
-
+    console.log(state, action);
     switch (action.type) {
         case ActionType.RETRIEVED_PRODUCT:
             return {
@@ -19,7 +19,7 @@ export const ProductReducer = (state = initialValue, action) => {
             case ActionType.ADDED_PRODUCT:
                 return {
                     ...state,
-                    patients: state.product.concat(action.payload),
+                    product: state.product.concat(action.payload),
                     errorMsg: '',
                     isLoading: false
                 }

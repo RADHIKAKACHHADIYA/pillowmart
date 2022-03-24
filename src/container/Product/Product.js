@@ -14,20 +14,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { useDispatch ,useSelector} from 'react-redux';
-import { fetchProduct } from '../../redux/action/Product.action';
-
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-
+import { addProduct, fetchProduct } from '../../redux/action/Product.action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const productData = [
     {
@@ -95,58 +85,31 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-function Product(props) {
+function Product() {
     const [open, setOpen] = useState(false)
     const [data, setData] = useState([])
     const [dOpen , setdOpen] = useState(false)
     const [id , setId] = useState()
     const [edit , setEdit] = useState()
+
     const dispatch = useDispatch()
 
     useEffect (
         () => {
             dispatch(fetchProduct())
-        }
-    )
-    const product = useSelector(state => state.product);
-    console.log(product.product)
-    useEffect(
-        () => {
-            loadData()
         },
-        [])
+    [])
 
-    const loadData = () => {
-        let localdata = JSON.parse(localStorage.getItem("product"))
-        if (localdata === null) {
-            localdata = productData
-            localStorage.setItem("product", JSON.stringify(productData))
+    const product = useSelector(state => state.product);
 
-        } else {
-            localdata = localdata
-        }
-        setData(localdata)
-    }
+    console.log(product);
 
     const handleEdit = (id) => {
-        const localdata = JSON.parse(localStorage.getItem("product"))
-        let filterData = localdata.filter((e) => e.id === id)
-
-        setEdit(filterData[0])
-        setOpen(filterData)
-
+        // let filterData = localdata.filter((e) => e.id === id)
     }
 
     const handleDelete = () => {
-        let localdata = JSON.parse(localStorage.getItem("product"))
-        
-        const fData = localdata.filter((d)=> d.id !== id)
-        localStorage.setItem("product" , JSON.stringify(fData))
-
-        setdOpen(fData)
-        setData(fData)
-        handleClose();
-       
+        // const fData = localdata.filter((d)=> d.id !== id)
     }
     const handleClickOpen = () => {
         setOpen(true);
@@ -174,17 +137,20 @@ function Product(props) {
                     >
                         Add Product
                     </Button>
-                    <AddProduct open={open} handleClose={handleClose} loadData={loadData} edit={edit}/>
+                    {/* <AddProduct open={open} handleClose={handleClose}  edit={edit}/> */}
                 </Box>
                 <TableContainer component={Paper} >
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow >
                                 <TableCell>
-                                    <h4>PRODUCT NAME</h4>
+                                    <h4>Email</h4>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <h4>PRODUCT PRICE</h4>
+                                    <h4>First Name</h4>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <h4>Last Name</h4>
                                 </TableCell>
                                 <TableCell align="center">
                                     <h4>EDIT</h4>
@@ -197,16 +163,19 @@ function Product(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row , i) => (
+                            {product.product.map((row , i) => (
                                 <TableRow
                                     key={i}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        <h6>{row.name}</h6>
+                                        <h6>{row.email}</h6>
                                     </TableCell>
                                     <TableCell align="center">
-                                        <h6>${row.price}</h6>
+                                        <h6>{row.first_name}</h6>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <h6>{row.last_name}</h6>
                                     </TableCell>
                                     <TableCell align="center">
                                         <IconButton aria-label="edit" color="primary" onClick={() => handleEdit(row.id)}>
