@@ -5,19 +5,29 @@ export const axiosInstance = axios.create ({
     baseURL : api,
     timeout : 3000
 })
-export const sentRequest = (config) => {
+export const sendRequest = (config) => {
     return axiosInstance.request(config)
 }
 export const getRequest = (path) => {
-    return sentRequest({
+    return sendRequest({
         url : path,
         method : 'get'
     });
 }
 
-export const addRequest = (path) => {
-    return sentRequest({
+export const addRequest = (path , data) => {
+    return sendRequest({
         url : path,
-        method : 'post'
+        method : 'post',
+        // data: JSON.stringify(data),
+        // headers: {
+        //     "Content-Type": "application/json"
+        // }
+    })
+}
+export const deleteRequest = (path , id) => {
+    return sendRequest({
+        url : path + id,
+        method : 'delete',
     })
 }

@@ -16,7 +16,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { addProduct, fetchProduct } from '../../redux/action/Product.action';
+import { addProduct, deleteProduct, fetchProduct } from '../../redux/action/Product.action';
 import { useDispatch, useSelector } from 'react-redux';
 
 const productData = [
@@ -87,10 +87,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Product() {
     const [open, setOpen] = useState(false)
-    const [data, setData] = useState([])
     const [dOpen , setdOpen] = useState(false)
     const [id , setId] = useState()
-    const [edit , setEdit] = useState()
 
     const dispatch = useDispatch()
 
@@ -101,7 +99,6 @@ function Product() {
     [])
 
     const product = useSelector(state => state.product);
-
     console.log(product);
 
     const handleEdit = (id) => {
@@ -109,7 +106,8 @@ function Product() {
     }
 
     const handleDelete = () => {
-        // const fData = localdata.filter((d)=> d.id !== id)
+        dispatch(deleteProduct(id))
+        handleClose()
     }
     const handleClickOpen = () => {
         setOpen(true);
@@ -137,7 +135,7 @@ function Product() {
                     >
                         Add Product
                     </Button>
-                    {/* <AddProduct open={open} handleClose={handleClose}  edit={edit}/> */}
+                    <AddProduct open={open} handleClose={handleClose} />
                 </Box>
                 <TableContainer component={Paper} >
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">

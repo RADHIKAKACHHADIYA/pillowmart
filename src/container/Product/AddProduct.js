@@ -9,22 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, fetchProduct } from '../../redux/action/Product.action';
-import Product from './Product';
+import { addProduct } from '../../redux/action/Product.action';
 
-
-
-function AddProduct({ open, handleClose, loadData, edit }) {
+function AddProduct({ open, handleClose }) {
     const [update, setUpdate] = useState()
     const dispatch = useDispatch()
-
-
-
-    useEffect(
-        () => {
-            setUpdate(edit)
-        },
-        [edit])
 
     const product = useSelector(state => state.product);
     console.log(product.product)
@@ -42,18 +31,19 @@ function AddProduct({ open, handleClose, loadData, edit }) {
             "id": Math.floor((Math.random() * 1000) + 1),
             ...value
         }
+        console.log(data);
 
         dispatch(addProduct(data))
         handleClose()
     };
 
     let AddSchema = {
-        name: yup.string().
+        email: yup.string().
             required("must be requir your name"),
-        price: yup.number().
-            required("must be requir your name"),
-        price: yup.number().
-            required("must be requir your name"),
+            first_name: yup.string().
+            required("must be requir your first name"),
+            last_name: yup.string().
+            required("must be requir your Last name"),
     }
 
     let schema = yup.object().shape(AddSchema)
@@ -61,9 +51,9 @@ function AddProduct({ open, handleClose, loadData, edit }) {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: update ? update.name : "",
-            price: parseInt(update ? update.price : ""),
-            price: parseInt(update ? update.price : ""),
+            email: update ? update.email : "",
+            first_name: parseInt(update ? update.first_name : ""),
+            last_name: parseInt(update ? update.last_name : ""),
         },
         validationSchema: schema,
         onSubmit: (value) => {
@@ -73,9 +63,9 @@ function AddProduct({ open, handleClose, loadData, edit }) {
 
     const { handleSubmit, errors, touched, handleChange, handleBlur, getFieldProps } = formik;
 
+    console.log(errors);
     return (
         <div>
-            <Product product={product} />
             <Dialog open={open} onClose={handleClose}>
                 <FormikProvider value={formik}>
                     <Form onSubmit={handleSubmit}>
@@ -87,7 +77,7 @@ function AddProduct({ open, handleClose, loadData, edit }) {
                             <TextField
                                 margin="dense"
                                 id="email"
-                                label="Name"
+                                label="Email"
                                 type="email"
                                 fullWidth
                                 variant="standard"
