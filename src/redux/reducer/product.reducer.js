@@ -30,6 +30,19 @@ export const ProductReducer = (state = initialValue, action) => {
                 errorMsg: '',
                 isLoading: false
             }
+            case ActionType.UPDATED_PRODUCT: 
+            return {
+                ...state,
+                product: state.product.map((e) => {
+                    if (e.id === action.payload.id) {
+                        return action.payload 
+                    } else {
+                        return e
+                    }
+                }),
+                errorMsg: '',
+                isLoading: false
+            }
         default:
             return state;
     }

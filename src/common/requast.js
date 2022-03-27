@@ -31,3 +31,13 @@ export const deleteRequest = (path , id) => {
         method : 'delete',
     })
 }
+export const updateRequest = (path, data) => {
+    return sendRequest({
+        url: path + data.id,
+        method: 'put',
+        data: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}

@@ -36,6 +36,17 @@ function AddProduct({ open, handleClose }) {
         dispatch(addProduct(data))
         handleClose()
     };
+    const handleUpdate = (value) => {
+        let data = {
+            id: update ? update.id : '',
+            email: value.email,
+            first_name: value.first_name,
+            last_name: value.last_name,
+        }
+        dispatch(updatepatients(data))
+        handleClose()
+        setUpdateData()
+    }
 
     let AddSchema = {
         email: yup.string().
@@ -57,7 +68,11 @@ function AddProduct({ open, handleClose }) {
         },
         validationSchema: schema,
         onSubmit: (value) => {
-            handleAdd(value)
+            if (updateData) {
+                handleUpdate(value)
+            } else {
+                handleAdd(value)
+            }
         }
     });
 

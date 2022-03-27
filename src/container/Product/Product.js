@@ -89,6 +89,7 @@ function Product() {
     const [open, setOpen] = useState(false)
     const [dOpen , setdOpen] = useState(false)
     const [id , setId] = useState()
+    const [updateData,setUpdateData] = useState();
 
     const dispatch = useDispatch()
 
@@ -103,6 +104,9 @@ function Product() {
 
     const handleEdit = (id) => {
         // let filterData = localdata.filter((e) => e.id === id)
+        let filterData = product.product.filter((l) => l.id === id)
+        setOpen(true)
+        setUpdateData(filterData[0])
     }
 
     const handleDelete = () => {

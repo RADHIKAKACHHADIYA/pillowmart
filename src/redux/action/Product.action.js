@@ -25,3 +25,10 @@ export const deleteProduct = (id) => (dispatch) => {
 export const deletedProduct = (data) => (dispatch) => {
     dispatch({ type: actionType.DELETED_PRODUCT , payload: data })
 }
+export const updateProduct = (data) => (dispatch) => {
+    dispatch({ type:  actionType.UPDATE_PRODUCT, payload: data })
+}
+
+export const updatedProduct = (data) => (dispatch) => {
+    dispatch({ type:  actionType.UPDATED_PRODUCT, payload: data })
+}
